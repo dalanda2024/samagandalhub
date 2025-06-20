@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>GandalHub</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link  href="{% static 'img/logo_gandalhub1.png' %}" >
+  <link href="{% static 'img/logo_gandalhub1.png' %}" >
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  <style>
+    /* Empêche le fond bleu sur clic/focus */
+    .dropdown-item:focus,
+    .dropdown-item:active {
+        background-color: #e6f7ed !important; /* Un vert très clair, proche de #5fcf80 */
+        color: #5fcf80 !important;
+        outline: none;
+        box-shadow: none;
+    }
+  </style>
+</head>
+
+<body class="contact-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <img src="{% static 'img/logo_gandalhub1.png' %}" alt="logo_gandalhub">
+      </a>
+
+      <nav id="navmenu" class="navmenu" style="position: relative;">
+        <ul style="display: flex; align-items: center; margin: 0; padding: 0; list-style: none;">
+          <li><a href="{% url 'index' %}">Accueil</a></li>
+          <li><a href="{% url 'about' %}">À propos</a></li>
+          <li><a href="{% url 'course_list' %}" >Cours</a></li>
+          <li><a href="{% url 'trainers' %}">Formateurs</a></li>
+          <li><a href="{% url 'events' %}">Événements</a></li>
+          <li><a href="{% url 'pricing' %}">Tarifs</a></li>
+          <li><a href="{% url 'contact' %}" class="active">Contact</a></li>
+
+          {% if user.is_authenticated %}
+          <li style="margin-left: auto; position: relative;">
+            <!-- Bouton cercle avec initiale du nom d'utilisateur -->
+            <button id="userDropdown" class="btn rounded-circle shadow"
+              style="width: 45px; height: 45px; font-size: 22px; font-weight: bold; background-color: #5fcf80; color: white; border: none;">
+              {{ user.username|slice:":1"|upper }}
+            </button>
+
+            <!-- Menu déroulant -->
+            <div id="dropdownMenu" class="dropdown-menu shadow"
+              style="display: none; position: absolute; top: 55px; right: 0; background: #fff; border-radius: 10px; border: 1px solid #5fcf80; box-shadow: 0 4px 15px rgba(95, 207, 128, 0.4); padding: 10px; min-width: 250px; z-index: 1000;">
+              <div class="text-center mb-2">
+                <strong style="font-size: 1.1rem; color: #2c3e50;">
+                  {% if user.first_name or user.last_name %}
+                    {{ user.first_name }} {{ user.last_name }}
+                  {% else %}
+                    {{ user.username }}
+                  {% endif %}
+                </strong><br>
+                <small class="text-muted">{{ user.email }}</small>
+              </div>
+              <hr style="margin: 0.5rem 0; border-color: #5fcf80;">
+              <a class="dropdown-item d-block"
+                style="padding: 6px 10px; font-weight: 600; "
+                href="{% url 'profile' %}">👤 Modifier Profil</a>
+              <a class="dropdown-item d-block"
+                style="padding: 6px 10px; font-weight: 600; "
+                href="{% url 'logout' %}">🔓 Se déconnecter</a>
+            </div>
+          </li>
+          {% endif %}
+        </ul>
+
+        <!-- Bouton mobile -->
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title" data-aos="fade">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1>Contact</h1>
+              <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="breadcrumbs">
+        <div class="container">
+          <ol>
+            <li><a href="{% url 'index' %}">Accueil</a></li>
+            <li class="current">Contact</li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq section">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>FAQ(Questions fréquemment posées)</h2>
+          <p>Retrouvez ici les réponses aux questions les plus courantes sur GandalHub</p>
+        </div>
+        <style>
+          /* Couleur verte transparente pour la question ouverte (focus/active) */
+          #faqAccordion .accordion-button:not(.collapsed) {
+            background-color: rgba(95, 207, 128, 0.18) !important;
+            color: #5fcf80 !important;
+            box-shadow: none;
+            font-weight: bold;
+          }
+          /* Questions toujours en gras */
+          #faqAccordion .accordion-button {
+            font-weight: bold;
+          }
+          /* Réponses : style normal, couleur foncée */
+          #faqAccordion .accordion-body {
+            color: #222;
+            font-weight: normal;
+          }
+        </style>
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                Quelles formations proposez-vous ?
+              </button>
+            </h2>
+            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                GandalHub propose des formations en développement web, mobile, bureautique, réseaux, cybersécurité, coiffure, couture, pâtisserie, menuiserie, anglais et français professionnel.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                Comment s'inscrire à une formation ?
+              </button>
+            </h2>
+            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Rendez-vous sur notre site ou dans nos centres à Kaloum ou Matam avec une pièce d'identité, le dernier diplôme et 2 photos. Vous pouvez aussi vous inscrire en ligne.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                Quels sont les tarifs des formations ?
+              </button>
+            </h2>
+            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Les tarifs varient selon la formation : Web (500 000 GNF/mois), Mobile (600 000 GNF/mois), Bureautique (200 000 GNF/mois), Coiffure/Couture (300 000 GNF/mois), Pâtisserie (400 000 GNF/mois), Menuiserie (350 000 GNF/mois), Anglais (250 000 GNF/mois), Français (200 000 GNF/mois).
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq4">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                Proposez-vous des stages ou un accompagnement à l'emploi ?
+              </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Oui, chaque formation inclut un stage pratique et un accompagnement à l'insertion professionnelle grâce à nos partenaires.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq5">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                Peut-on suivre les cours à distance ?
+              </button>
+            </h2>
+            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Oui, certains modules sont accessibles en ligne (web, bureautique, anglais). Contactez-nous pour plus d'informations.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End FAQ Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
+        <iframe style="border:0; width: 100%; height: 300px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div><!-- End Google Maps -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4">
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h3>Address</h3>
+                <p>A108 Adam Street, New York, NY 535022</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              <i class="bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3>Call Us</h3>
+                <p>+1 5589 55488 55</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h3>Email</h3>
+                <p>gandalhub@example.com</p>
+              </div>
+            </div><!-- End Info Item -->
+
+          </div>
+
+          <div class="col-lg-8">
+            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                </div>
+
+                <div class="col-md-6 ">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                  <button type="submit">Envoyer</button>
+                </div>
+
+              </div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer position-relative light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+            <img src="{% static 'img/logo_gandalhubnoir1.png' %}" alt="logo_gandalhub">
+          </a>
+          <div class="footer-contact pt-3">
+            
+            <p class="mt-3"><strong>Phone:</strong> <span>+224600000000</span></p>
+            <p><strong>Email:</strong> <span>gandalhub@example.com</span></p>
+          </div>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Liens utiles</h4>
+          <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">A propos de nous</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Politiques de confidentialité</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Nos Services</h4>
+          <ul>
+            <li><a href="#">Web Design</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">Product Management</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-12 footer-newsletter">
+          <h4>Notre Newsletter</h4>
+          <p>S'abonner to our newsletter and receive the latest news about our products and services!</p>
+          <form action="forms/newsletter.php" method="post" class="php-email-form">
+            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="S'abonner"></div>
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">GandalHub</strong> <span>Tous droits reservés</span></p>
+      
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script  src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}" ></script>
+  <script  src="{% static 'vendor/php-email-form/validate.js' %}" ></script>
+  <script  src="{% static 'vendor/aos/aos.js' %}" ></script>
+  <script  src="{% static 'vendor/glightbox/js/glightbox.min.js' %}" ></script>
+  <script  src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}" ></script>
+  <script  src="{% static 'vendor/swiper/swiper-bundle.min.js' %}" ></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main.js' %}" ></script>
+  {% include "partials/chatbot.html" %}
+  <script src="{% static 'js/chatbot.js' %}"></script>
+
+  <!-- SCRIPT POUR AFFICHAGE/FERMETURE DU POPUP -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const button = document.getElementById('userDropdown');
+      const menu = document.getElementById('dropdownMenu');
+
+      if (button && menu) {
+        button.addEventListener('click', function (e) {
+          e.stopPropagation();
+          menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', function () {
+          menu.style.display = 'none';
+        });
+
+        menu.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+      }
+    });
+  </script>
+
+</body>
+
+</html>

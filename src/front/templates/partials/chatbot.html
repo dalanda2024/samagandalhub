@@ -1,0 +1,41 @@
+<!-- Bouton du chatbot (flottant, animé, vert, ombre épaisse) -->
+<div class="position-fixed end-0 p-3" style="z-index: 9999; bottom: 100px;">
+  <button id="chatbot-trigger" class="btn btn-gandalhub rounded-circle p-3 shadow-lg d-flex flex-column align-items-center chatbot-float-btn" style="width:64px;height:64px;">
+    <i class="fas fa-comments fa-2x mb-1"></i>
+    <span class="badge bg-white text-success border border-success" style="font-size:10px;">Chatbot IA</span>
+  </button>
+</div>
+
+<!-- Fenêtre du chatbot (plus arrondie, ombre, header vert foncé, animée) -->
+<div id="chatbot-window" class="position-fixed end-0 mb-7 me-3 d-none chatbot-animate" style="width: 370px; z-index: 9998; bottom: 120px;">
+  <div class="card shadow-lg border-0 chatbot-card">
+    <div class="card-header bg-gandalhub text-white d-flex justify-content-between align-items-center chatbot-header">
+      <div class="d-flex align-items-center">
+        <i class="fas fa-robot fa-lg me-2"></i>
+        <h6 class="mb-0">Assistant IA GandalHub</h6>
+      </div>
+      <button id="chatbot-close" class="btn btn-sm btn-light p-0" style="width: 24px; height: 24px;">
+        &times;
+      </button>
+    </div>
+    <div class="card-body p-3 chatbot-body" id="chatbot-messages" style="height: 320px; overflow-y: auto; background: #f8fefb;">
+      <div class="alert alert-success small mb-2 p-2 d-flex align-items-center chatbot-welcome">
+        <i class="fas fa-robot me-2"></i>
+        <span>Je suis le chatbot IA de GandalHub. Posez-moi vos questions !</span>
+      </div>
+    </div>
+    <div class="card-footer p-2 chatbot-footer" style="background: #eafaf1;">
+      <div class="input-group">
+        <input 
+          type="text" 
+          class="form-control form-control-sm" 
+          id="user-input" 
+          placeholder="Écrivez ici..."
+        >
+        <button class="btn btn-gandalhub btn-sm" id="send-message">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

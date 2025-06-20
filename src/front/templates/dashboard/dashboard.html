@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_dashbord</title>
+</head>
+<body>
+    <h2 class="text-center mt-4" style="color:#5fcf80">Tableau de bord admin</h2>
+    <div class="row text-center mt-4">
+        <div class="col-md-3"><div class="card"><div class="card-body">Utilisateurs<br><strong>{{ total_users }}</strong></div></div></div>
+        <div class="col-md-3"><div class="card"><div class="card-body">Formateurs<br><strong>{{ total_formateurs }}</strong></div></div></div>
+        <div class="col-md-3"><div class="card"><div class="card-body">Cours<br><strong>{{ total_cours }}</strong></div></div></div>
+        <div class="col-md-3"><div class="card"><div class="card-body">Événements<br><strong>{{ total_evenements }}</strong></div></div></div>
+    </div>
+
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4" style="color: #5fcf80; font-weight: bold;">Tableau de Bord Administrateur</h2>
+
+        <div class="row text-center mb-5">
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="card-title">Utilisateurs</h5>
+                        <p class="card-text">Gérer tous les utilisateurs inscrits.</p>
+                        <a href="{% url 'admin_utilisateurs' %}" class="btn btn-success w-100">Voir les utilisateurs</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="card-title">Cours</h5>
+                        <p class="card-text">Ajouter ou modifier des cours disponibles.</p>
+                        <a href="{% url 'admin_cours' %}" class="btn btn-success w-100">Gérer les cours</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="card-title">Événements</h5>
+                        <p class="card-text">Ajouter ou modifier des blogs ou événements.</p>
+                        <a href="{% url 'admin_evenements' %}" class="btn btn-success w-100">Gérer les événements</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <h4 class="mt-4" style="color: #5fcf80;">Liste des cours</h4>
+        <div class="row">
+            {% for cours in cours_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ cours.image.url }}" class="card-img-top" alt="Image du cours" style="height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ cours.titre }}</h5>
+                        <p class="card-text">{{ cours.description|truncatechars:100 }}</p>
+                        <a href="{% url 'admin_cours_detail' cours.id %}" class="btn btn-outline-success w-100">Voir les détails</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>Aucun cours disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

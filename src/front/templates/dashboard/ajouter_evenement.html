@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 class="text-center mt-4" style="color:#5fcf80">Ajouter un événement</h2>
+    <form method="post" enctype="multipart/form-data" class="mt-4">{% csrf_token %}{{ form.as_p }}<button class="btn btn-primary">Ajouter</button></form>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+</head>
+<body>
+    <div class="container mt-5" style="max-width: 500px;">
+        <h2 class="mb-4 text-center">Connexion</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="mb-3">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="text-danger small">
+                        {% for error in form.username.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="text-danger small">
+                        {% for error in form.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <p>Mot de passe oublié ? <a href="#">Réinitialiser</a></p>
+            <p>Pas encore de compte ? <a href="{% url 'register' %}">Inscrivez-vous</a></p>
+        </div>
+    </div>
+</body>
+</html>

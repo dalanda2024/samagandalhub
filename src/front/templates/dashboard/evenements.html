@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 class="text-center mt-4" style="color:#5fcf80">Liste des événements</h2>
+    <a href="{% url 'admin_ajouter_evenement' %}" class="btn btn-success mb-3">➕ Ajouter un événement</a>
+    <table class="table">
+        <thead><tr><th>Titre</th><th>Date</th><th>Type</th></tr></thead>
+        <tbody>
+            {% for e in evenements %}
+            <tr><td>{{ e.titre }}</td><td>{{ e.date_evenement }}</td><td>{{ e.get_type_display }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz_module</title>
+</head>
+<body>
+    <div class="container py-5">
+        <h2>Quiz pour le module : {{ module.titre }}</h2>
+
+        <form method="post" action="">
+            {% csrf_token %}
+
+            {% for question in questions %}
+            <div class="mb-4">
+                <h5>{{ forloop.counter }}. {{ question.texte }}</h5>
+                {% for choix in question.choix.all %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" 
+                        name="{{ question.id }}" 
+                        id="choix{{ choix.id }}" 
+                        value="{{ choix.id }}">
+                    <label class="form-check-label" for="choix{{ choix.id }}">
+                    {{ choix.texte }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+            {% empty %}
+            <p>Aucune question disponible pour ce quiz.</p>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Soumettre le quiz</button>
+        </form>
+    </div>
+</body>
+</html>

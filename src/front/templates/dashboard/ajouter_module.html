@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">{{ cours.titre }}</h2>
+        <div class="mb-4">
+            <img src="{{ cours.image.url }}" alt="{{ cours.titre }}" class="img-fluid rounded" style="max-height: 300px; object-fit: cover;">
+        </div>
+
+        <div class="mb-4">
+            <p><strong>Catégorie:</strong> {{ cours.categorie }}</p>
+            <p><strong>Description:</strong> {{ cours.description }}</p>
+        </div>
+
+        <div class="mb-4">
+            <h4>Formateur</h4>
+            <div class="d-flex align-items-center">
+            {% if cours.formateur.photo %}
+            <img src="{{ cours.formateur.photo.url }}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+            {% endif %}
+            <div>
+                <strong>{{ cours.formateur.first_name }} {{ cours.formateur.last_name }}</strong><br>
+                <small class="text-muted">{{ cours.formateur.email }}</small><br>
+                <em>{{ cours.formateur.bio }}</em>
+            </div>
+            </div>
+        </div>
+
+        <div class="mb-5">
+            <h4>Modules</h4>
+            {% if user.is_authenticated %}
+            {% for module in cours.modules.all %}
+                <div class="card mb-2">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <span>{{ module.titre }}</span>
+                    {% if module.id in modules_termines %}
+                    <span class="badge bg-success">Terminé</span>
+                    {% else %}
+                    <a href="{% url 'suivre_module' module.id %}" class="btn btn-sm btn-outline-success">Marquer comme terminé</a>
+                    {% endif %}
+                </div>
+                </div>
+            {% empty %}
+                <p>Aucun module ajouté pour ce cours.</p>
+            {% endfor %}
+
+            <div class="progress mt-4">
+                <div class="progress-bar" role="progressbar" style=" background-color: #5fcf80;" aria-valuenow="{{ progression }}" aria-valuemin="0" aria-valuemax="100">{{ progression }}%</div>
+            </div>
+            {% else %}
+            <p class="text-center"><a href="{% url 'login' %}" class="btn btn-success">Connectez-vous</a> pour suivre ce cours.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
